@@ -22,8 +22,9 @@ namespace RailwaySystem
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
                     connection.Open();
-                    Console.WriteLine("Done.");
+                    //Console.WriteLine("Done.");
                 }
+                //Console.WriteLine(builder.ConnectionString);
             }
             catch (SqlException ex)
             {

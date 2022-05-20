@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using EasyData.Services;
+using System.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+
+using Microsoft.SqlServer;
+using RailwaySystem.Data;
 
 namespace RailwaySystem
 {
@@ -25,6 +24,15 @@ namespace RailwaySystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "0.0.0.0:1433";
+            builder.UserID = "sa";
+            builder.Password = "DockerSQL31659";
+            builder.InitialCatalog = "master";
+
+            services.AddDbContext<RailwayContext>
+                (options => options.UseSqlServer(builder.ConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
